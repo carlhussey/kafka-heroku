@@ -1,5 +1,5 @@
 {
-  "name": "express-test",
+  "name": "firecake-data-ingest",
   "version": "1.0.0",
   "private": true,
   "scripts": {
