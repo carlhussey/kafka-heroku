@@ -96,10 +96,50 @@ module.exports = {
      */
 
     logError: function (message, error) {
-        if(!message || !error){
+        if (!message || !error) {
             return false;
         }
         console.log(message, error)
     },
 
-};
+    /**
+     * 
+     * Read a file using async
+     * @param {*} path 
+     * @param {*} opts 
+     */
+    readFile: function (path, opts = 'utf8') {
+
+        return new Promise((resolve, reject) => {
+            const fs = require('fs')
+            fs.readFile(path, opts, (err, data) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve(data)
+            })
+        })
+        
+    },
+
+    /**
+     * 
+     * Write a file using async
+     * @param {*} path 
+     * @param {*} data 
+     * @param {*} opts 
+     */
+    writeFile: function (path, data, opts = 'utf8') {
+
+        return new Promise((resolve, reject) => {
+            const fs = require('fs')
+            fs.writeFile(path, data, opts, (err) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve()
+            })
+        })
+
+    }
+}

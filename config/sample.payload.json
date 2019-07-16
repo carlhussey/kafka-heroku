@@ -1,0 +1,11 @@
+{
+    "topic": "enterprise-marketing-ingest",
+    "data": {
+        "firstName": "Carl",
+        "lastName": "Hussey",
+        "age": 31,
+        "department": "UTO",
+        "campus": "Tempe",
+        "state": "Arizona"
+    }
+}

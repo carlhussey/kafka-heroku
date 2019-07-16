@@ -1,6 +1,5 @@
 const assert = require('assert')
 const { expect } = require('chai')
-
 const {
     logError,
     validateSchema
@@ -34,14 +33,6 @@ describe('Utilities Methods', () => {
             expect(validate).to.be.an('object')
             expect(validate).to.not.include({ error: null })
 
-        })
-    })
-
-    // Check field mapping
-    describe('mapFields() function', () => {
-        it('Should error out if we don\'t provide a message', () => {
-            const log = logError('', 'test')
-            assert.notEqual(log, null)
         })
     })
 
