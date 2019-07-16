@@ -1,0 +1,88 @@
+
+const request = require('request');
+let xx = 0;
+
+// Every iteration, send data to our payload
+setInterval(function() {
+    xx++;
+    doPost();
+  }, 100);
+
+
+function doPost() {
+    request.post('http://localhost:5000/payload', {
+        json: getRandomPayload(Math.floor(Math.random() * 4))
+    }, (error, res, body) => {
+        if (error) {
+            console.error(error)
+            return
+        }
+        res.on('error', function(err) {
+            if (err.code === "ECONNRESET") {
+                console.log("Timeout occurs");
+                return;
+            }
+            //handle normal errors
+        });
+    })
+}
+
+function getRandomPayload(i) {
+
+    switch (i) {
+        case 0:
+            return {
+                "topic": "enterprise-marketing-ingest",
+                "data": {
+                    "firstName": "John",
+                    "lastName": "Doe",
+                    "age": xx,
+                    "department": "UTO",
+                    "campus": "Tempe",
+                    "state": "Arizona"
+                }
+            }
+            break;
+        case 1:
+            return {
+                "topic": "edplus-ingest",
+                "data": {
+                    "fName": "Mike",
+                    "lName": "Jones",
+                    "age": xx,
+                    "dept": "None",
+                    "campus": "Phx",
+                    "state": "Arizona"
+                }
+            }
+            break;
+            case 2:
+            return {
+                "topic": "edplus-ingest",
+                "data": {
+                    "fName": "Jimmy",
+                    "lName": "Dodge",
+                    "age": xx,
+                    "dept": "Home",
+                    "campus": "Phx",
+                    "state": "Arizona"
+                }
+            }
+            break;
+            case 3:
+            return {
+                "topic": "edplus-ingest",
+                "data": {
+                    "fName": "Rick",
+                    "lName": "Smith",
+                    "age": xx,
+                    "dept": "Work",
+                    "campus": "Phx",
+                    "state": "Arizona"
+                }
+            }
+            break;
+    }
+
+}
+

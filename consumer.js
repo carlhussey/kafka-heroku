@@ -1,0 +1,59 @@
+/**
+ *
+ * consumer.js
+ *
+ * Subscribes to a kafka topic to consume
+ * messages sent by our producer.
+ *
+ */
+
+const utilities = require("./utilities")
+const kafka = require("kafka-node")
+const topics = ["edplus-ingest", "enterprise-marketing-ingest"]
+const groupName = "marketing"
+const options = {
+    groupId: groupName,
+    autoCommit: false,
+    sessionTimeout: 15000,
+    protocol: ["roundrobin"],
+    fromOffset: "latest",
+    outOfRangeOffset: "latest"
+}
+const consumerGroup = new kafka.ConsumerGroup(options, topics)
+
+// Listen for messages from the defined topics
+consumerGroup.on("message", async (message) => {
+
+    // Transform message based on topic
+    const transformed = await utilities.mapFields(message)
+
+    // Store Record
+    utilities.storeRecord(transformed)
+
+        .then((dbResult) => {
+
+            setTimeout(() => {
+
+                // Once we receive notice that we have stored the record, commit the offset
+                consumerGroup.commit((error, data) => {
+
+                    if (error) {
+                        utilities.logError('Failed to commit', error)
+                    }
+                    
+                })
+
+            }, 0)
+
+        })
+        .catch((error) => {
+            utilities.logError('Failed to insert record', error)
+        })
+})
+
+// On error
+consumerGroup.on("error", (error) => {
+    utilities.logError('Error receiving message', error)
+})
+
+console.log("Consumer Waiting For Slurpy ...")

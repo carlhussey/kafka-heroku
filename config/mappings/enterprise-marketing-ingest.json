@@ -1,0 +1,26 @@
+[
+    {
+        "sourceField": "firstName",
+        "destinationField": "firstName"
+    },
+    {
+        "sourceField": "lastName",
+        "destinationField": "lastName"
+    },
+    {
+        "sourceField": "age",
+        "destinationField": "age"
+    },
+    {
+        "sourceField": "department",
+        "destinationField": "department"
+    },
+    {
+        "sourceField": "campus",
+        "destinationField": "campus"
+    },
+    {
+        "sourceField": "state",
+        "destinationField": "state"
+    }
+]
