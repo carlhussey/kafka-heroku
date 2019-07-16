@@ -1,16 +1,16 @@
 
-const request = require('request');
-let xx = 0;
+const request = require('request')
+let xx = 0
 
 // Every iteration, send data to our payload
 setInterval(function() {
-    xx++;
-    doPost();
-  }, 100);
+    xx++
+    doPost()
+  }, 100)
 
 
 function doPost() {
-    request.post('http://localhost:5000/payload', {
+    request.post('http://localhost:3000/payload', {
         json: getRandomPayload(Math.floor(Math.random() * 4))
     }, (error, res, body) => {
         if (error) {
@@ -19,11 +19,11 @@ function doPost() {
         }
         res.on('error', function(err) {
             if (err.code === "ECONNRESET") {
-                console.log("Timeout occurs");
-                return;
+                console.log("Timeout occurs")
+                return
             }
             //handle normal errors
-        });
+        })
     })
 }
 
@@ -42,7 +42,7 @@ function getRandomPayload(i) {
                     "state": "Arizona"
                 }
             }
-            break;
+            break
         case 1:
             return {
                 "topic": "edplus-ingest",
@@ -55,7 +55,7 @@ function getRandomPayload(i) {
                     "state": "Arizona"
                 }
             }
-            break;
+            break
             case 2:
             return {
                 "topic": "edplus-ingest",
@@ -68,7 +68,7 @@ function getRandomPayload(i) {
                     "state": "Arizona"
                 }
             }
-            break;
+            break
             case 3:
             return {
                 "topic": "edplus-ingest",
@@ -81,7 +81,7 @@ function getRandomPayload(i) {
                     "state": "Arizona"
                 }
             }
-            break;
+            break
     }
 
 }
