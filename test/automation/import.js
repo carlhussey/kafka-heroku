@@ -1,23 +1,27 @@
-
 const request = require('request')
 let xx = 0
 
-// Every iteration, send data to our payload
-setInterval(function() {
+/**
+ * Post to API Endpoint on defiend interval
+ */
+setInterval(function () {
     xx++
     doPost()
-  }, 100)
+}, 100)
 
 
+/**
+ * Post to API Endpoint
+ */
 function doPost() {
-    request.post('http://localhost:3000/payload', {
+    request.post('http://localhost:3000/api/v1/payload', {
         json: getRandomPayload(Math.floor(Math.random() * 4))
     }, (error, res, body) => {
         if (error) {
             console.error(error)
             return
         }
-        res.on('error', function(err) {
+        res.on('error', function (err) {
             if (err.code === "ECONNRESET") {
                 console.log("Timeout occurs")
                 return
@@ -27,6 +31,10 @@ function doPost() {
     })
 }
 
+/**
+ * Pick a random payload
+ * @param {*} i 
+ */
 function getRandomPayload(i) {
 
     switch (i) {
@@ -56,7 +64,7 @@ function getRandomPayload(i) {
                 }
             }
             break
-            case 2:
+        case 2:
             return {
                 "topic": "edplus-ingest",
                 "data": {
@@ -69,7 +77,7 @@ function getRandomPayload(i) {
                 }
             }
             break
-            case 3:
+        case 3:
             return {
                 "topic": "edplus-ingest",
                 "data": {

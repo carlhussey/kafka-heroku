@@ -23,7 +23,7 @@ describe('Database', () => {
     describe('models/Communications - Properties Check', () => {
         const Comm = CommunicationsModel(sequelize, dataTypes)
         const instance = new Comm()
-            ;['recordID', 'messageUUID', 'firstName', 'lastName', 'age', 'department', 'campus', 'state', 'partition', 'offset'].forEach(
+            ['recordID', 'messageUUID', 'firstName', 'lastName', 'age', 'department', 'campus', 'state', 'partition', 'offset'].forEach(
                 checkPropertyExists(instance)
             )
     })

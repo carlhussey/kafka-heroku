@@ -56,4 +56,4 @@ consumerGroup.on("error", (error) => {
     utilities.logError('Error receiving message', error)
 })
 
-console.log("Consumer Waiting For Slurpy ...")
+console.log("Consumer Waiting...")

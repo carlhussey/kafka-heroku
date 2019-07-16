@@ -4,10 +4,13 @@ const asyncHandler = require("express-async-handler")
 const producer = require("../producer")
 const utilities = require("../utilities")
 
-/* Check Resource */
+/* Check Resources */
 router.get('/', function (req, res, next) {
-  res.send('valid route found - not configured')
-});
+  res.status(200).json({ status: 'API Ready' })
+})
+router.get('/v1', function (req, res, next) {
+  res.status(200).json({ status: 'API Ready' })
+})
 
 /**
  * V1 API
