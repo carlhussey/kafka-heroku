@@ -30,4 +30,6 @@ app.use(function(err, req, res, next) {
   res.json({ error: err })
 })
 
+console.log(process)
+
 module.exports = app

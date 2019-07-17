@@ -37,8 +37,6 @@ module.exports = {
         }
       ]
 
-      console.log(topicObj)
-
       // On producer ready
       producer.on("ready", () => {
 
