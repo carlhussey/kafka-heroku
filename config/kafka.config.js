@@ -5,7 +5,7 @@ let options = {}
 const kafkaHosts = process.env.KAFKA_URL.replace(/kafka\+ssl:\/\//gi, "")
 
 // Only set these options for our HEROKU app
-if (process.env.NODE_ENV !== 'dev') {
+if (process.env.NODE_ENV !== 'development') {
     const kafkaCert = x509.parseCert(process.env.KAFKA_TRUSTED_CERT)
     let options = {
         "key": process.env.KAFKA_CLIENT_CERT_KEY,

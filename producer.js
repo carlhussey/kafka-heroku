@@ -22,7 +22,8 @@ module.exports = {
 
       const HighLevelProducer = kafka.HighLevelProducer
       const client = new kafka.KafkaClient({
-        kafkaHost: kafkaOptions.host
+        kafkaHost: kafkaOptions.host,
+        sslOptions: kafkaOptions.options
       })
       const producer = new HighLevelProducer(client)
 
