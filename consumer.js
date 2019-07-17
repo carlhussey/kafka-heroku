@@ -9,10 +9,12 @@
 
 const utilities = require("./utilities")
 const kafka = require("kafka-node")
+const kafkaConfig = require('./config/kafka.config')
 const topics = ["edplus-ingest", "enterprise-marketing-ingest"]
 const groupName = "marketing"
 const options = {
-    kafkaHost: process.env.KAFKA_URL,
+    kafkaHost: kafkaConfig.host,
+    ssl: kafkaConfig.options,
     groupId: groupName,
     autoCommit: false,
     sessionTimeout: 15000,

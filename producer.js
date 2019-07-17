@@ -9,6 +9,7 @@
  */
 
 const kafka = require("kafka-node")
+const kafkaOptions = require('./config/kafka.config')
 const utilities = require("./utilities")
 const uuidv1 = require('uuid/v1')
 require('dotenv').config()
@@ -20,9 +21,10 @@ module.exports = {
     return new Promise((resolve, reject) => {
 
       const HighLevelProducer = kafka.HighLevelProducer
-      const client = new kafka.KafkaClient({ kafkaHost: process.env.KAFKA_URL })
+      const client = new kafka.KafkaClient({
+        kafkaHost: kafkaOptions.host
+      })
       const producer = new HighLevelProducer(client)
-      const topicPrefix = process.env.KAFKA_PREFIX
 
       // Add a UDID to our payload
       payload.messageUUID = uuidv1()
@@ -30,10 +32,12 @@ module.exports = {
       // Define our topic object
       const topicObj = [
         {
-          topic: topicPrefix + payload.topic,
+          topic: process.env.KAFKA_PREFIX + payload.topic,
           messages: JSON.stringify(payload)
         }
       ]
+
+      console.log(topicObj)
 
       // On producer ready
       producer.on("ready", () => {
