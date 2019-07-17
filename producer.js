@@ -22,6 +22,7 @@ module.exports = {
       const HighLevelProducer = kafka.HighLevelProducer
       const client = new kafka.KafkaClient({ kafkaHost: process.env.KAFKA_URL })
       const producer = new HighLevelProducer(client)
+      const topicPrefix = process.env.KAFKA_PREFIX
 
       // Add a UDID to our payload
       payload.messageUUID = uuidv1()
@@ -29,7 +30,7 @@ module.exports = {
       // Define our topic object
       const topicObj = [
         {
-          topic: payload.topic,
+          topic: topicPrefix + payload.topic,
           messages: JSON.stringify(payload)
         }
       ]
@@ -51,7 +52,7 @@ module.exports = {
           producer.close()
           resolve(data)
 
-        });
+        })
 
       })
 

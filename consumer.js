@@ -20,7 +20,14 @@ const options = {
     fromOffset: "latest",
     outOfRangeOffset: "latest"
 }
-const consumerGroup = new kafka.ConsumerGroup(options, topics)
+require('dotenv').config()
+
+// Add Kafka Topic Prefix for Heroku
+const prefixedTopics = topics.map(function (el) {
+    return process.env.KAFKA_PREFIX + el
+})
+
+const consumerGroup = new kafka.ConsumerGroup(options, prefixedTopics)
 
 // Listen for messages from the defined topics
 consumerGroup.on("message", async (message) => {
@@ -41,7 +48,7 @@ consumerGroup.on("message", async (message) => {
                     if (error) {
                         utilities.logError('Failed to commit', error)
                     }
-                    
+
                 })
 
             }, 0)
