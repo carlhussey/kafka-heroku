@@ -66,4 +66,9 @@ consumerGroup.on("error", (error) => {
     utilities.logError('Error receiving message', error)
 })
 
+// On connect
+consumerGroup.on('connect', () => {
+    console.log('Connected to Consumer Brokers')
+})
+
 console.log("Consumer Waiting...")
