@@ -14,7 +14,7 @@ module.exports = {
 
             const fs = require('fs')
 
-            fs.readFile('./config/mappings/' + payload.topic + '.json', 'utf8', (err, res) => {
+            fs.readFile('./config/mappings/' + payload.topic.replace(process.env.KAFKA_PREFIX, '') + '.json', 'utf8', (err, res) => {
 
                 if (err) {
                     reject(err)
