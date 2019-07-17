@@ -20,8 +20,6 @@ module.exports = {
                     reject(err)
                 }
 
-                console.log(payload)
-
                 const parsed = JSON.parse(payload.value)
                 const map = JSON.parse(res)
                 let data = [parsed.data]

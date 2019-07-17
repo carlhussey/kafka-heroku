@@ -11,7 +11,7 @@ require('dotenv').config()
 const utilities = require("./utilities")
 const kafka = require("kafka-node")
 const kafkaConfig = require('./config/kafka.config')
-const topics = ["edplus-ingest", "enterprise-marketing-ingest"]
+const topics = ["edplus-marketing-ingest", "enterprise-marketing-ingest"]
 const groupName = "marketing"
 const options = {
     kafkaHost: kafkaConfig.kafkaHost,
