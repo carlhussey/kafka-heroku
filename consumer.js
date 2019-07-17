@@ -15,7 +15,7 @@ const groupName = "marketing"
 const options = {
     kafkaHost: kafkaConfig.host,
     ssl: kafkaConfig.options,
-    groupId: groupName,
+    groupId: process.env.KAFKA_PREFIX + groupName,
     autoCommit: false,
     sessionTimeout: 15000,
     protocol: ["roundrobin"],
