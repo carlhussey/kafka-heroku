@@ -42,7 +42,7 @@ module.exports = {
 
           if (err) {
             utilities.logError("Producer received error", {
-              error: error,
+              error: err,
               data: data
             })
             reject(err)
