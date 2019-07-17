@@ -27,5 +27,7 @@ module.exports = {
             "kafkaHost": kafkaHosts,
             "sslOptions": options
         })
-    }
+    },
+    "kafkaHost": kafkaHosts,
+    "sslOptions": options
 }
