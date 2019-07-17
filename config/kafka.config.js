@@ -1,19 +1,20 @@
-const x509 = require('x509')
 require('dotenv').config()
-
-let options = {}
+const kafka = require("kafka-node")
+const x509 = require('x509')
+const Client = kafka.KafkaClient
 const kafkaHosts = process.env.KAFKA_URL.replace(/kafka\+ssl:\/\//gi, "")
+let kafkaCert = ''
+let options = ''
 
-// Only set these options for our HEROKU app
 if (process.env.NODE_ENV !== 'development') {
-    const kafkaCert = x509.parseCert(process.env.KAFKA_TRUSTED_CERT)
-    let options = {
+    kafkaCert = x509.parseCert(process.env.KAFKA_TRUSTED_CERT)
+    options = {
         "key": process.env.KAFKA_CLIENT_CERT_KEY,
         "cert": process.env.KAFKA_CLIENT_CERT,
         "ca": [process.env.KAFKA_TRUSTED_CERT],
         "checkServerIdentity": (host, cert) => {
-            if (kafkaCert.fingerPrint === cert.issuerCertificate.fingerprint) {
-                return undefined
+            if (kafkaCert.fingerPrint === cert.issuerCertificate.fingerprint) { 
+                return undefined 
             }
             return Error('Not authentic')
         }
@@ -21,6 +22,10 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 module.exports = {
-    "host": kafkaHosts,
-    "options": options
+    "client": () => {
+        return new Client({
+            "kafkaHost": kafkaHosts,
+            "sslOptions": options
+        })
+    }
 }

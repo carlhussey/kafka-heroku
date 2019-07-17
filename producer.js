@@ -20,11 +20,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
 
       const HighLevelProducer = kafka.HighLevelProducer
-      const kafkaOptions = require('./config/kafka.config')
-      const client = new kafka.KafkaClient({
-        kafkaHost: kafkaOptions.host,
-        sslOptions: kafkaOptions.options
-      })
+      const client = require('./config/kafka.config').client()
       const producer = new HighLevelProducer(client)
 
       // Add a UDID to our payload
