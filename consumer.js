@@ -12,6 +12,7 @@ const kafka = require("kafka-node")
 const topics = ["edplus-ingest", "enterprise-marketing-ingest"]
 const groupName = "marketing"
 const options = {
+    kafkaHost: process.env.KAFKA_URL,
     groupId: groupName,
     autoCommit: false,
     sessionTimeout: 15000,

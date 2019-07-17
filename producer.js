@@ -11,6 +11,7 @@
 const kafka = require("kafka-node")
 const utilities = require("./utilities")
 const uuidv1 = require('uuid/v1')
+require('dotenv').config()
 
 module.exports = {
 
@@ -19,7 +20,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
 
       const HighLevelProducer = kafka.HighLevelProducer
-      const client = new kafka.KafkaClient()
+      const client = new kafka.KafkaClient({ kafkaHost: process.env.KAFKA_URL })
       const producer = new HighLevelProducer(client)
 
       // Add a UDID to our payload
@@ -66,5 +67,5 @@ module.exports = {
     })
 
   }
-  
+
 }
