@@ -13,7 +13,7 @@ const kafkaConfig = require('./config/kafka.config')
 const topics = ["edplus-ingest", "enterprise-marketing-ingest"]
 const groupName = "marketing"
 const options = {
-    kafkaHost: kafkaConfig.kafkaHost,
+    host: kafkaConfig.kafkaHost,
     ssl: kafkaConfig.sslOptions,
     groupId: process.env.KAFKA_PREFIX + groupName,
     autoCommit: false,
