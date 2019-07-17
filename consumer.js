@@ -6,26 +6,16 @@
  * messages sent by our producer.
  *
  */
-const x509 = require('x509')
+
+require('dotenv').config()
 const utilities = require("./utilities")
 const kafka = require("kafka-node")
 const kafkaConfig = require('./config/kafka.config')
 const topics = ["edplus-ingest", "enterprise-marketing-ingest"]
 const groupName = "marketing"
-const kafkaCert = x509.parseCert(process.env.KAFKA_TRUSTED_CERT)
 const options = {
-    kafkaHost: process.env.KAFKA_URL.replace(/kafka\+ssl:\/\//gi, ""),
-    ssl: {
-        "key": process.env.KAFKA_CLIENT_CERT_KEY,
-        "cert": process.env.KAFKA_CLIENT_CERT,
-        "ca": [process.env.KAFKA_TRUSTED_CERT],
-        "checkServerIdentity": (host, cert) => {
-            if (kafkaCert.fingerPrint === cert.issuerCertificate.fingerprint) { 
-                return undefined 
-            }
-            return Error('Not authentic')
-        }
-    },
+    kafkaHost: kafkaConfig.kafkaHost,
+    sslOptions: kafkaConfig.sslOptions,
     groupId: process.env.KAFKA_PREFIX + groupName,
     autoCommit: false,
     sessionTimeout: 15000,
@@ -33,10 +23,6 @@ const options = {
     fromOffset: "latest",
     outOfRangeOffset: "latest"
 }
-
-console.log(options)
-
-require('dotenv').config()
 
 // Add Kafka Topic Prefix for Heroku
 const prefixedTopics = topics.map(function (el) {
@@ -82,7 +68,7 @@ consumerGroup.on("error", (error) => {
 
 // On connect
 consumerGroup.on('connect', () => {
-    console.log('Connected to Consumer Brokers')
+    console.log('Connected to Consumer')
 })
 
 console.log("Consumer Waiting...")
