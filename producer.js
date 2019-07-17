@@ -9,7 +9,6 @@
  */
 
 const kafka = require("kafka-node")
-const kafkaOptions = require('./config/kafka.config')
 const utilities = require("./utilities")
 const uuidv1 = require('uuid/v1')
 require('dotenv').config()
@@ -21,6 +20,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
 
       const HighLevelProducer = kafka.HighLevelProducer
+      const kafkaOptions = require('./config/kafka.config')
       const client = new kafka.KafkaClient({
         kafkaHost: kafkaOptions.host,
         sslOptions: kafkaOptions.options
